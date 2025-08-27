@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 Cursos em 1 - SAP PM + SAP MM</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      padding: 100px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+    header p {
+      font-size: 1.3em;
+      opacity: 0;
+      animation: fadeIn 2s 1s forwards;
+    }
+
+    section { padding: 60px 20px; max-width: 1100px; margin: auto; }
+    h2 { text-align: center; margin-bottom: 30px; position: relative; }
+    h2::after {
+      content: "";
+      width: 60px;
+      height: 4px;
+      background: #f59e0b;
+      display: block;
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+
+    .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .benefit-card {
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    .benefit-card.visible { opacity: 1; transform: translateY(0); }
+
+    .offer {
+      text-align: center;
+      background: #fef3c7;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .offer h2 { color: #b45309; }
+    .countdown { font-size: 1.8em; font-weight: bold; color: #ef4444; margin-top: 15px; animation: pulse 1.5s infinite; }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 25px;
+      background: #10b981;
+      color: #fff;
+      font-size: 1.3em;
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .cta-btn:hover { background: #059669; transform: scale(1.05); }
+
+    .testimonials { text-align: center; }
+    .testimonial-card {
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 20px auto;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .testimonial-card.active { opacity: 1; }
+    .testimonial-card p { font-style: italic; }
+    .testimonial-card h4 { margin-top: 10px; color: #111; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    /* Animações */
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Botão fixo mobile */
+    .cta-fixed {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-decoration: none;
+      z-index: 999;
+    }
+    @media(max-width:768px){
+      .cta-fixed { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>2 Cursos em 1: SAP PM + SAP MM Online</h1>
+    <p id="typing"></p>
+  </header>
+
+  <section class="benefits">
+    <h2>O que você vai aprender:</h2>
+    <div class="benefit-card">Fundamentos SAP PM e SAP MM</div>
+    <div class="benefit-card">Dados Mestres SAP PM e SAP MM</div>
+    <div class="benefit-card">SAP MM: Processo de Compras, Gestão de Stock e Relatórios</div>
+    <div class="benefit-card">SAP PM: Gestão da Manutenção, Manutenção Preventiva e Relatórios</div>
+    <div class="benefit-card">Acesso ao SAP para praticar</div>
+    <div class="benefit-card">Direito ao manual do curso e certificado</div>
+    <div class="benefit-card">Acesso ao grupo exclusivo SAP GO! (Mentoria e Vagas)</div>
+  </section>
+
+  <section class="offer">
+    <h2>Oferta Especial</h2>
+    <p>💡 Agora imagine: cada módulo individualmente custa acima de <b>200.000 AKZ</b>.<br>
+    Mas eu preparei algo especial para você:</p>
+
+    <p>✅ Cada curso sai por apenas <b>185.250 AKZ</b><br>
+    ✅ Os dois juntos por apenas <b>370.500 AKZ (em 2 prestações)</b></p>
+
+    <p class="countdown">Oferta termina em: <span id="timer"></span></p>
+
+    <a href="https://wa.me/244937760737" class="cta-btn">📲 Inscreva-se Agora no WhatsApp</a>
+  </section>
+
+  <section class="testimonials">
+    <h2>O que nossos alunos dizem:</h2>
+    <div class="testimonial-card active">
+      <p>“O curso foi transformador! Hoje consigo aplicar SAP MM no meu trabalho e já recebi uma promoção.”</p>
+      <h4>– João A., Analista de Compras</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>“Nunca pensei que aprender SAP PM seria tão prático. As aulas e o acesso ao sistema fizeram toda diferença.”</p>
+      <h4>– Carla M., Engenheira de Manutenção</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>“O suporte e o grupo exclusivo SAP GO! me ajudaram muito a conseguir minha primeira vaga.”</p>
+      <h4>– Pedro S., Consultor Júnior SAP</h4>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 SAP GO! Cursos. Todos os direitos reservados.</p>
+  </footer>
+
+  <a href="https://wa.me/244937760737" class="cta-fixed">📲 Inscreva-se</a>
+
+  <script>
+    // Efeito typing
+    const text = "Aprenda SAP PM + SAP MM de forma prática e online.";
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 60);
+      }
+    }
+    window.onload = typeWriter;
+
+    // Animação dos benefícios no scroll
+    const cards = document.querySelectorAll('.benefit-card');
+    window.addEventListener('scroll', () => {
+      const triggerBottom = window.innerHeight * 0.9;
+      cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < triggerBottom) {
+          card.classList.add('visible');
+        }
+      });
+    });
+
+    // Contador regressivo (48h)
+    const timerElement = document.getElementById('timer');
+    const deadline = new Date().getTime() + 48 * 60 * 60 * 1000;
+    setInterval(() => {
+      const now = new Date().getTime();
+      const t = deadline - now;
+      if (t >= 0) {
+        const hours = Math.floor((t % (1000*60*60*24))/(1000*60*60));
+        const minutes = Math.floor((t % (1000*60*60))/(1000*60));
+        const seconds = Math.floor((t % (1000*60))/1000);
+        timerElement.innerHTML = hours + "h " + minutes + "m " + seconds + "s";
+      }
+    }, 1000);
+
+    // Carrossel de depoimentos
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    let index = 0;
+    setInterval(() => {
+      testimonials[index].classList.remove('active');
+      index = (index + 1) % testimonials.length;
+      testimonials[index].classList.add('active');
+    }, 5000);
+  </script>
+</body>
+</html>
